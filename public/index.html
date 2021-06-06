@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socket Server</title>
+</head>
+
+<body>
+    <h1>Acceso Denegado</h1>
+
+    <!-- Esta Libreria Es La Que Permite La Comunicación Activo -- Activo -->
+    <script src="socket.io/socket.io.js"></script>
+    <script>
+        /* El Objeto Que Tiene Todo De La Libreria Socket.io */
+        let socket = io();
+
+        socket.on('connect', () => {
+            console.log('Conectado Al Servidor');
+        })
+
+        socket.on('disconnect', () => {
+            console.log('Perdimos Conexión Con El Servidor');
+        });
+
+        socket.emit('mensaje', {
+            nombre: 'Daniel Fernando Yepez Vélez'
+        });
+
+        socket.on('mensaje', function(payload) {
+            console.log('Escuchando: ', payload);
+        });
+    </script>
+</body>
+
+</html>
