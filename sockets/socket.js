@@ -1,3 +1,4 @@
+/* Aqui Tengo La Configuación De Socket.io */
 const { io } = require('../index');
 
 /* Mensajes De Sockets */
