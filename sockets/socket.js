@@ -28,10 +28,28 @@ io.on('connection', client => {
         io.emit('mensaje', { admin: 'Mensaje RECIBIDO Desde El Frontend' });
     });
 
-    client.on('emitir-mensaje', (payload) => {
+    /* EJEMPLO PARA TENER ENCUENTA */
+    /* client.on('emitir-mensaje', (payload) => {
         console.log(payload);
         io.emit('nuevo-mensaje', payload); // Emite Para Todo El Mundo E Incluso El Que Lo Emitio
         // client.broadcast.emit('Nuevo Mensaje Emitido Backend', 'Heyy!!!'); // Emite Para Todo El Mundo Excepto El Que Lo Emitio
+    }); */
+
+    client.on('vote-band', (payload) => {
+        bands.voteBand(payload.id);
+
+        /* Todos Los Clientes Conectados Estan En IO */
+        io.emit('active-bands', bands.getBands());
     });
 
+    client.on('add-band', (payload) => {
+        const newBand = new Band(payload.name);
+        bands.addBand(newBand);
+        io.emit('active-bands', bands.getBands());
+    });
+
+    client.on('delete-band', (payload) => {
+        bands.deleteBand(payload.id);
+        io.emit('active-bands', bands.getBands());
+    });
 });
