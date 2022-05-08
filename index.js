@@ -28,6 +28,7 @@ app.use(express.static(publicPath));
 
 /* Routes */
 app.use('/api/login', require('./routes/auth_route'));
+app.use('/api/users', require('./routes/users_route'));
 
 
 /* Listening PORT */

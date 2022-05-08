@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 
+/* Creando El Token Para Nuestros Usuarios */
 const generateJwt = (uid) => {
     return new Promise((resolve, reject) => {
         const payload = { uid };
@@ -18,6 +19,18 @@ const generateJwt = (uid) => {
     });
 };
 
+/* El Token Que Viene Del Cliente, Si Sea Válido */
+const checkClientjwt = (token = '') => {
+    try {
+        /* Si El Verify Tiene Algún Problema Entonces Se Dispara El Error (Verifica Si El Token Es Valido Y Toma Su Payload)*/
+        const { uid } = jwt.verify(token, process.env.JWT_KEY);
+        return [true, uid];
+    } catch (error) {
+        return [false, null];
+    }
+};
+
 module.exports = {
     generateJwt,
+    checkClientjwt,
 }
